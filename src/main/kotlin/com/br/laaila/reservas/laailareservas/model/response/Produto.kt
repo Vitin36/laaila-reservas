@@ -1,8 +1,9 @@
 package com.br.laaila.reservas.laailareservas.model.response
 
-data class ProdutoCreatedOrUpdated(
+data class ProdutoResponse(
         val id: Long,
         val nome: String,
         val valor: Long,
-        val descricao: String
+        val descricao: String,
+        val catalogo: Long
 )

@@ -1,9 +1,6 @@
 package com.br.laaila.reservas.laailareservas.model.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Produto(
@@ -12,5 +9,7 @@ data class Produto(
         val id: Long = -1,
         var nome: String,
         var valor: Long,
-        var descricao: String
+        var descricao: String,
+        @ManyToOne(fetch = FetchType.LAZY)
+        var catalogo: Catalogo
 )
