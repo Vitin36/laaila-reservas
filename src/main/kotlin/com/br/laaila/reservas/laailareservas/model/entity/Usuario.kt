@@ -11,11 +11,16 @@ class Usuario(
         var senha: String,
         var nome: String,
         var contato: String,
-        @OneToMany(fetch = FetchType.EAGER)
+        val ativo: Boolean = true,
+        @Enumerated(EnumType.STRING)
+        @ElementCollection(targetClass = Permissao::class, fetch = FetchType.EAGER)
+        @JoinTable(
+                name = "usuario_permissoes",
+                joinColumns = [JoinColumn(name = "usuario_email")]
+        )
+        @Column(name = "permissoes_id", nullable = false)
         var permissoes: MutableList<Permissao>? = mutableListOf(Permissao.CLIENTE)
 ) : UserDetails {
-
-    private val ativo = true
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return permissoes!!
@@ -43,5 +48,17 @@ class Usuario(
 
     override fun isAccountNonLocked(): Boolean {
         return true
+    }
+}
+
+
+enum class Permissao(
+        open val valor: String
+) : GrantedAuthority {
+    ADMIN("ADMIN") {
+        override fun getAuthority() = this.valor
+    },
+    CLIENTE("CLIENTE") {
+        override fun getAuthority() = this.valor
     }
 }

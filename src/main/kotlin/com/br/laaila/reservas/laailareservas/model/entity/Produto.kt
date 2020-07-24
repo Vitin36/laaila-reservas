@@ -5,7 +5,8 @@ import javax.persistence.*
 @Entity
 data class Produto(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto")
+        @SequenceGenerator(name = "produto", sequenceName = "produto_seq", allocationSize = 1)
         val id: Long = -1,
         var nome: String,
         var valor: Long,

@@ -5,7 +5,8 @@ import javax.persistence.*
 @Entity
 open class Catalogo(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "catalogo")
+        @SequenceGenerator(name = "catalogo", sequenceName = "catalogo_seq", allocationSize = 1)
         open val id: Long = -1,
         open var nome: String,
         open var descricao: String?,
