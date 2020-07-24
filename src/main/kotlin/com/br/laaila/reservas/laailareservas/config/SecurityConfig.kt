@@ -1,18 +1,53 @@
 package com.br.laaila.reservas.laailareservas.config
 
 import org.springframework.context.annotation.Bean
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.crypto.password.NoOpPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
 
+
 @EnableWebSecurity
 @EnableAuthorizationServer
 @EnableResourceServer
-open class SecurityConfig {
+open class SecurityConfig(
+//        private val usuarioService: UsuarioService
+) : WebSecurityConfigurerAdapter() {
+
+    private val email = "vitor.silva@zup.com.br"
+    private val senha = "1234567"
+    private val nome = "vitor hugo ferreira silva"
+    private val contato = "34992291965"
+
+//    @Bean
+//    open fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+
+    //    @Bean
+//    open fun configureUser() {
+//        usuarioService.delete(email)
+//        usuarioService.create(UsuarioCreate(
+//                email,
+//                senha,
+//                nome,
+//                contato
+//        ))
+//    }
+
+    override fun authenticationManager(): AuthenticationManager? {
+        return super.authenticationManager()
+    }
+
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth.inMemoryAuthentication().withUser("alexandre").password("123").roles("ADMIN")
+    }
 
     @Bean
-    open fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+    open fun passwordEncoder(): PasswordEncoder? {
+        return NoOpPasswordEncoder.getInstance()
+    }
 
 }
