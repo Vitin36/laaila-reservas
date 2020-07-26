@@ -11,7 +11,9 @@ class Usuario(
         var senha: String,
         var nome: String,
         var contato: String,
-        val ativo: Boolean = true,
+        var ativo: Boolean = true,
+        val externalClientId: String? = null,
+        val externalClientType: ExternalType? = null,
         @Enumerated(EnumType.STRING)
         @ElementCollection(targetClass = Permissao::class, fetch = FetchType.EAGER)
         @JoinTable(
@@ -51,6 +53,10 @@ class Usuario(
     }
 }
 
+enum class ExternalType {
+    FACEBOOK,
+    GOOGLE
+}
 
 enum class Permissao(
         open val valor: String

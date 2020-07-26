@@ -11,6 +11,7 @@ data class Produto(
         var nome: String,
         var valor: Long,
         var descricao: String,
+        var ativo: Boolean = true,
         @ManyToOne(fetch = FetchType.LAZY)
         var catalogo: Catalogo
 )

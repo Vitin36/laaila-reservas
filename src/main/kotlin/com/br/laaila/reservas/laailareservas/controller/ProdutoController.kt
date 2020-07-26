@@ -2,6 +2,7 @@ package com.br.laaila.reservas.laailareservas.controller
 
 import com.br.laaila.reservas.laailareservas.model.mapper.map
 import com.br.laaila.reservas.laailareservas.model.request.ProdutoCreate
+import com.br.laaila.reservas.laailareservas.model.request.ProdutoStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.ProdutoUpdate
 import com.br.laaila.reservas.laailareservas.model.response.ProdutoResponse
 import com.br.laaila.reservas.laailareservas.service.ProdutoService
@@ -40,10 +41,10 @@ class ProdutoController(
         return map(produtoService.update(id, produtoUpdate))
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable("id") id: Long) {
-        produtoService.delete(id)
+    fun updateStatus(@RequestBody @Valid produtoStatusUpdate: ProdutoStatusUpdate) {
+        produtoService.updateStatus(produtoStatusUpdate)
     }
 
 }

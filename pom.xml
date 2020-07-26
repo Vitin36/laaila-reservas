@@ -19,6 +19,7 @@
         <kotlin.version>1.3.72</kotlin.version>
         <hibernate.validator.version>6.0.16.Final</hibernate.validator.version>
         <spring.security.oauth2.autoconfigure>2.0.1.RELEASE</spring.security.oauth2.autoconfigure>
+        <spring.cloud.openfeign.version>2.2.3.RELEASE</spring.cloud.openfeign.version>
     </properties>
 
     <dependencies>
@@ -31,6 +32,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${spring.cloud.openfeign.version}</version>
         </dependency>
 
         <dependency>

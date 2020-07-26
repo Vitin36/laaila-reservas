@@ -4,7 +4,9 @@ CREATE TABLE USUARIO
     SENHA   varchar NOT NULL,
     NOME    varchar NOT NULL,
     CONTATO varchar NOT NULL,
-    ATIVO   boolean NOT NULL
+    ATIVO   boolean NOT NULL,
+    EXTERNAL_CLIENT_ID varchar,
+    EXTERNAL_CLIENT_TYPE varchar
 );
 
 CREATE TABLE PERMISSAO

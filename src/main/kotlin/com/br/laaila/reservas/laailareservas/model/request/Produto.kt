@@ -16,5 +16,11 @@ data class ProdutoUpdate(
         val nome: String?,
         val valor: Long?,
         val descricao: String?,
-        val catalogo: Long?
+        val catalogo: Long?,
+        val ativo: Boolean?
+)
+
+data class ProdutoStatusUpdate(
+        @field:[NotNull] val id: Long,
+        @field:[NotNull] val ativo: Boolean
 )

@@ -4,5 +4,5 @@ import com.br.laaila.reservas.laailareservas.infrastructure.errors.ErrorCode
 
 data class BaseExceptionMessage(
         val code: ErrorCode,
-        val message: String?
+        val message: String? = null
 )

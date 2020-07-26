@@ -5,5 +5,6 @@ data class ProdutoResponse(
         val nome: String,
         val valor: Long,
         val descricao: String,
-        val catalogo: Long
+        val catalogo: Long,
+        val ativo: Boolean
 )

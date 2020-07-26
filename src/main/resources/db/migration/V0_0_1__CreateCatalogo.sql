@@ -1,7 +1,7 @@
 CREATE TABLE CATALOGO(
     ID        integer       NOT NULL PRIMARY KEY,
     NOME      varchar   NOT NULL,
-    STATUS    varchar   NOT NULL,
+    ATIVO     boolean NOT NULL,
     DESCRICAO varchar
 );
 

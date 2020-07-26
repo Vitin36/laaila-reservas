@@ -1,9 +1,9 @@
 package com.br.laaila.reservas.laailareservas.controller
 
-import com.br.laaila.reservas.laailareservas.model.entity.Catalogo
 import com.br.laaila.reservas.laailareservas.model.mapper.map
 import com.br.laaila.reservas.laailareservas.model.mapper.mapCatalogoProduto
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoCreate
+import com.br.laaila.reservas.laailareservas.model.request.CatalogoStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoUpdate
 import com.br.laaila.reservas.laailareservas.model.response.CatalogoProdutoResponse
 import com.br.laaila.reservas.laailareservas.model.response.CatalogoResponse
@@ -41,10 +41,10 @@ class CatalogoController(
         return map(catalogoService.update(id, update))
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable("id") id: Long) {
-        catalogoService.delete(id)
+    fun updateStatus(@RequestBody @Valid catalogoStatusUpdate: CatalogoStatusUpdate) {
+        catalogoService.updateStatus(catalogoStatusUpdate)
     }
 
 }

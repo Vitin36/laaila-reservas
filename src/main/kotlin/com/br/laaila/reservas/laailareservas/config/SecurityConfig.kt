@@ -34,7 +34,7 @@ open class SecurityConfig(
 
     //    @Bean
 //    open fun configureUser() {
-//        usuarioService.delete(email)
+//        usuarioService.inactivate(email)
 //        usuarioService.create(UsuarioCreate(
 //                email,
 //                senha,

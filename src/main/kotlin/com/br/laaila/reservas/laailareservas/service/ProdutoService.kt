@@ -6,6 +6,7 @@ import com.br.laaila.reservas.laailareservas.infrastructure.repository.ProdutoRe
 import com.br.laaila.reservas.laailareservas.model.entity.Produto
 import com.br.laaila.reservas.laailareservas.model.mapper.map
 import com.br.laaila.reservas.laailareservas.model.request.ProdutoCreate
+import com.br.laaila.reservas.laailareservas.model.request.ProdutoStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.ProdutoUpdate
 import org.springframework.stereotype.Service
 
@@ -36,24 +37,27 @@ class ProdutoService(
     }
 
     fun update(id: Long, produtoUpdate: ProdutoUpdate): Produto {
-        return repository.save(repository.findById(id)
-                .orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
-                .apply {
-                    this.nome = produtoUpdate.nome ?: this.nome
-                    this.valor = produtoUpdate.valor ?: this.valor
-                    this.descricao = produtoUpdate.descricao ?: this.descricao
-                    produtoUpdate.catalogo?.let {
-                        this.catalogo = catalogoService.findById(it)
-                    }
-                }
+        return repository.save(
+                repository.findById(id)
+                        .orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
+                        .apply {
+                            this.nome = produtoUpdate.nome ?: this.nome
+                            this.valor = produtoUpdate.valor ?: this.valor
+                            this.descricao = produtoUpdate.descricao ?: this.descricao
+                            this.ativo = produtoUpdate.ativo ?: this.ativo
+                            produtoUpdate.catalogo?.let {
+                                this.catalogo = catalogoService.findById(it)
+                            }
+                        }
         )
     }
 
-    fun delete(id: Long) {
-        repository.findById(id)
+    fun updateStatus(produtoStatusUpdate: ProdutoStatusUpdate) {
+        repository.findById(produtoStatusUpdate.id)
                 .orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
-                .run {
-                    repository.deleteById(id)
+                .apply {
+                    this.ativo = produtoStatusUpdate.ativo
+                    repository.save(this)
                 }
     }
 }

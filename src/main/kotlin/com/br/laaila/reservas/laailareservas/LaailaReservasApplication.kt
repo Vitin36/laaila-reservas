@@ -3,12 +3,14 @@ package com.br.laaila.reservas.laailareservas
 import org.apache.logging.log4j.LogManager
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.context.i18n.LocaleContextHolder
 import java.net.InetAddress
 import java.time.LocalDateTime
 import java.util.*
 
 @SpringBootApplication
+@EnableFeignClients
 open class LaailaReservasApplication
 
 fun main(args: Array<String>) {    val logger = LogManager.getLogger(LaailaReservasApplication::class.java);

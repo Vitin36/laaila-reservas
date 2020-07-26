@@ -10,12 +10,7 @@ open class Catalogo(
         open val id: Long = -1,
         open var nome: String,
         open var descricao: String?,
-        open var status: CatalogoStatus = CatalogoStatus.ABERTO,
+        open var ativo: Boolean = true,
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo")
         open var produtos: List<Produto> = emptyList()
 )
-
-enum class CatalogoStatus(val status: String) {
-    ABERTO("ABERTO"),
-    FECHADO("FECHADO")
-}

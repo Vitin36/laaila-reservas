@@ -17,5 +17,6 @@ fun map(produto: Produto) = ProdutoResponse(
         nome = produto.nome,
         valor = produto.valor,
         descricao = produto.descricao,
-        catalogo = produto.catalogo.id
+        catalogo = produto.catalogo.id,
+        ativo = produto.ativo
 )
