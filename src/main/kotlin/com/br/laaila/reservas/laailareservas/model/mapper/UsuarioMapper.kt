@@ -14,10 +14,11 @@ fun map(usuarioCreate: UsuarioCreate): Usuario = Usuario(
 )
 
 fun map(usuario: Usuario): UsuarioResponse = UsuarioResponse(
+        id = usuario.id,
         email = usuario.email,
         nome = usuario.nome,
         contato = usuario.contato,
-        permissoes = usuario.permissoes,
+        permissao = usuario.permissao,
         ativo = usuario.ativo,
         externalClientId = usuario.externalClientId,
         externalClientType = usuario.externalClientType

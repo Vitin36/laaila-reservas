@@ -4,6 +4,7 @@ import com.br.laaila.reservas.laailareservas.model.mapper.map
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioCreate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioStatusUpdate
+import com.br.laaila.reservas.laailareservas.model.request.UsuarioUpdate
 import com.br.laaila.reservas.laailareservas.model.response.UsuarioResponse
 import com.br.laaila.reservas.laailareservas.service.UsuarioService
 import org.springframework.http.HttpStatus
@@ -22,10 +23,16 @@ class UsuarioController(
         return map(usuarioService.create(create))
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun findById(@RequestParam("email") email: String): UsuarioResponse {
-        return map(usuarioService.findById(email))
+    fun findById(@PathVariable("id") id: Long): UsuarioResponse {
+        return map(usuarioService.findById(id))
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    fun update(@PathVariable("id") id: Long, @RequestBody @Valid update: UsuarioUpdate): UsuarioResponse {
+        return map(usuarioService.update(id, update))
     }
 
     @PatchMapping

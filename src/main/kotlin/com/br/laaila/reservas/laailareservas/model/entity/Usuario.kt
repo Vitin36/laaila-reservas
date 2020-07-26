@@ -7,25 +7,23 @@ import javax.persistence.*
 @Entity
 class Usuario(
         @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario")
+        @SequenceGenerator(name = "usuario", sequenceName = "usuario_seq", allocationSize = 1)
+        val id: Long = -1,
+        @Column(unique = true)
         val email: String,
         var senha: String,
         var nome: String,
-        var contato: String,
+        var contato: String? = null,
         var ativo: Boolean = true,
         val externalClientId: String? = null,
         val externalClientType: ExternalType? = null,
-        @Enumerated(EnumType.STRING)
-        @ElementCollection(targetClass = Permissao::class, fetch = FetchType.EAGER)
-        @JoinTable(
-                name = "usuario_permissoes",
-                joinColumns = [JoinColumn(name = "usuario_email")]
-        )
-        @Column(name = "permissoes_id", nullable = false)
-        var permissoes: MutableList<Permissao>? = mutableListOf(Permissao.CLIENTE)
+        @Enumerated(value = EnumType.STRING)
+        var permissao: Permissao = Permissao.CLIENTE
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return permissoes!!
+        return mutableListOf(permissao)
     }
 
     override fun isEnabled(): Boolean {
