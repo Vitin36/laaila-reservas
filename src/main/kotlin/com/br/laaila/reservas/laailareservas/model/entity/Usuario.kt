@@ -19,7 +19,9 @@ class Usuario(
         val externalClientId: String? = null,
         val externalClientType: ExternalType? = null,
         @Enumerated(value = EnumType.STRING)
-        var permissao: Permissao = Permissao.CLIENTE
+        var permissao: Permissao = Permissao.CLIENTE,
+        @OneToOne(mappedBy = "usuario")
+        var carrinho: Carrinho? = null
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

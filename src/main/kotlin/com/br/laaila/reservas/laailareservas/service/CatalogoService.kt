@@ -15,8 +15,6 @@ class CatalogoService(
         private val repository: CatalogoRepository
 ) {
 
-    @Autowired
-    lateinit var produtoService: ProdutoService
     private val NOT_FOUND_MESSAGE = "Catalogo não encontrado"
 
     fun findById(id: Long): Catalogo {

@@ -8,24 +8,32 @@ import com.br.laaila.reservas.laailareservas.model.mapper.map
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioCreate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioUpdate
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
-class UsuarioService(
+open class UsuarioService(
         private val repository: UsuarioRepository,
         private val passwordEncoder: PasswordEncoder
 ) : UserDetailsService {
 
+    @Autowired
+    private lateinit var carrinhoService: CarrinhoService
+
     private val NOT_FOUND_MESSAGE = "Usuário não encontrado"
     private val NOT_PERMITTED_MESSAGE = "Usuário já existe"
 
-    fun create(usuarioCreate: UsuarioCreate): Usuario {
+    @Transactional
+    open fun create(usuarioCreate: UsuarioCreate): Usuario {
         repository.findByEmail(usuarioCreate.email).ifPresent { throw NotPermittedOperationException(NOT_PERMITTED_MESSAGE) }
-        return repository.save(map(usuarioCreate).apply { this.senha = encrypt(this.senha) })
+        return repository
+                .save(map(usuarioCreate).apply { this.senha = encrypt(this.senha) })
+                .apply { carrinhoService.createByUsuario(this.id) }
     }
 
     fun findById(id: Long): Usuario {
