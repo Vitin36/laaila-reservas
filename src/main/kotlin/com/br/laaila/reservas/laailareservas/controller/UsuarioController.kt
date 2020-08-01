@@ -1,7 +1,6 @@
 package com.br.laaila.reservas.laailareservas.controller
 
 import com.br.laaila.reservas.laailareservas.model.mapper.map
-import com.br.laaila.reservas.laailareservas.model.request.CatalogoStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioCreate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.UsuarioUpdate

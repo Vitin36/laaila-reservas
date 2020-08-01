@@ -1,33 +1,25 @@
 package com.br.laaila.reservas.laailareservas.service
 
 import com.br.laaila.reservas.laailareservas.infrastructure.exception.NotFoundException
-import com.br.laaila.reservas.laailareservas.infrastructure.exception.NotPermittedOperationException
 import com.br.laaila.reservas.laailareservas.infrastructure.repository.CarrinhoRepository
+import com.br.laaila.reservas.laailareservas.infrastructure.repository.ProdutoQuantidadeRepository
 import com.br.laaila.reservas.laailareservas.model.entity.Carrinho
+import com.br.laaila.reservas.laailareservas.model.entity.ProdutoQuantidade
+import com.br.laaila.reservas.laailareservas.model.entity.Usuario
 import com.br.laaila.reservas.laailareservas.model.request.CarrinhoUpdate
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-open class CarrinhoService(
-        private val carrinhoRepository: CarrinhoRepository
+class CarrinhoService(
+        private val carrinhoRepository: CarrinhoRepository,
+        private val produtoQuantidadeRepository: ProdutoQuantidadeRepository,
+        private val produtoService: ProdutoService
 ) {
-
-    @Autowired
-    private lateinit var usuarioService: UsuarioService
-
-    @Autowired
-    private lateinit var produtoQuantidadeService: ProdutoQuantidadeService
 
     private val NOT_FOUND_MESSAGE = "Carrinho não encontrado"
 
-    fun createByUsuario(usuarioId: Long): Carrinho {
-        val usuario = usuarioService.findById(usuarioId).apply {
-            if (this.carrinho !== null) {
-                throw NotPermittedOperationException("Este usuário já possui um carrinho!")
-            }
-        }
+    fun createByUsuario(usuario: Usuario): Carrinho {
         return carrinhoRepository.save(Carrinho(usuario = usuario))
     }
 
@@ -41,13 +33,19 @@ open class CarrinhoService(
                 .orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
     }
 
-    @Transactional
-    open fun updateCarrinho(carrinhoUpdate: CarrinhoUpdate) {
-        findById(carrinhoUpdate.carrinhoId).itens
-                .forEach { produtoQuantidadeService.delete(it.id) }
+    fun updateCarrinho(carrinhoUpdate: CarrinhoUpdate) {
+        val carrinho = findById(carrinhoUpdate.carrinhoId)
+        carrinho.itens.forEach { produtoQuantidadeRepository.deleteById(it.id) }
         carrinhoUpdate.itens
                 .filter { it.quantidade > 0 }
-                .forEach { produtoQuantidadeService.create(carrinhoUpdate.carrinhoId, it) }
+                .forEach {
+                    val produto = produtoService.findById(it.produtoId)
+                    produtoQuantidadeRepository.save(ProdutoQuantidade(
+                            quantidade = it.quantidade,
+                            produto = produto,
+                            carrinho = carrinho
+                    ))
+                }
     }
 
 }

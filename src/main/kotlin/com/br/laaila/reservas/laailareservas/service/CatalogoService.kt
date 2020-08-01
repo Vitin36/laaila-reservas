@@ -7,7 +7,6 @@ import com.br.laaila.reservas.laailareservas.model.request.CatalogoCreate
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoUpdate
 import com.br.laaila.reservas.laailareservas.infrastructure.exception.NotFoundException
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoStatusUpdate
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
