@@ -1,10 +1,12 @@
 package com.br.laaila.reservas.laailareservas.model.response
 
+import java.util.UUID
+
 data class ProdutoResponse(
-        val id: Long,
+        val id: UUID,
         val nome: String,
-        val valor: Long,
+        val valor: Double,
         val descricao: String,
-        val catalogo: Long,
+        val catalogo: UUID,
         val ativo: Boolean
 )

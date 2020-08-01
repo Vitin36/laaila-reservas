@@ -9,6 +9,7 @@ import com.br.laaila.reservas.laailareservas.model.response.UsuarioResponse
 import com.br.laaila.reservas.laailareservas.service.UsuarioService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -25,13 +26,13 @@ class UsuarioController(
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun findById(@PathVariable("id") id: Long): UsuarioResponse {
+    fun findById(@PathVariable("id") id: UUID): UsuarioResponse {
         return map(usuarioService.findById(id))
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun update(@PathVariable("id") id: Long, @RequestBody @Valid update: UsuarioUpdate): UsuarioResponse {
+    fun update(@PathVariable("id") id: UUID, @RequestBody @Valid update: UsuarioUpdate): UsuarioResponse {
         return map(usuarioService.update(id, update))
     }
 

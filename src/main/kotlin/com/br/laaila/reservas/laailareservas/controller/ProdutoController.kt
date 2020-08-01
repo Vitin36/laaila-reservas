@@ -8,6 +8,7 @@ import com.br.laaila.reservas.laailareservas.model.response.ProdutoResponse
 import com.br.laaila.reservas.laailareservas.service.ProdutoService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -24,7 +25,7 @@ class ProdutoController(
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun findById(@PathVariable("id") id: Long): ProdutoResponse {
+    fun findById(@PathVariable("id") id: UUID): ProdutoResponse {
         return map(produtoService.findById(id))
     }
 
@@ -36,7 +37,7 @@ class ProdutoController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun update(@PathVariable("id") id: Long,
+    fun update(@PathVariable("id") id: UUID,
                @RequestBody @Valid produtoUpdate: ProdutoUpdate): ProdutoResponse {
         return map(produtoService.update(id, produtoUpdate))
     }

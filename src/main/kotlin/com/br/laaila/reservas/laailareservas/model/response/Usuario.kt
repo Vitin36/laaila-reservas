@@ -2,9 +2,10 @@ package com.br.laaila.reservas.laailareservas.model.response
 
 import com.br.laaila.reservas.laailareservas.model.entity.ExternalType
 import com.br.laaila.reservas.laailareservas.model.entity.Permissao
+import java.util.*
 
 data class UsuarioResponse(
-        val id: Long,
+        val id: UUID,
         val email: String,
         var nome: String,
         var ativo: Boolean,

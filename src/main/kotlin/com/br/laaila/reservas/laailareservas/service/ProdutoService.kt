@@ -9,6 +9,7 @@ import com.br.laaila.reservas.laailareservas.model.request.ProdutoCreate
 import com.br.laaila.reservas.laailareservas.model.request.ProdutoStatusUpdate
 import com.br.laaila.reservas.laailareservas.model.request.ProdutoUpdate
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ProdutoService(
@@ -18,7 +19,7 @@ class ProdutoService(
 
     private val NOT_FOUND_MESSAGE = "Produto não encontrado"
 
-    fun findById(id: Long): Produto {
+    fun findById(id: UUID): Produto {
         return repository.findById(id).orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
     }
 
@@ -36,7 +37,7 @@ class ProdutoService(
         }
     }
 
-    fun update(id: Long, produtoUpdate: ProdutoUpdate): Produto {
+    fun update(id: UUID, produtoUpdate: ProdutoUpdate): Produto {
         return repository.save(
                 repository.findById(id)
                         .orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }

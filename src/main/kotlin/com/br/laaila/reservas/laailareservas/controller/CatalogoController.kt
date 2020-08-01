@@ -10,6 +10,7 @@ import com.br.laaila.reservas.laailareservas.model.response.CatalogoResponse
 import com.br.laaila.reservas.laailareservas.service.CatalogoService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -25,7 +26,7 @@ class CatalogoController(
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable("id") id: Long): CatalogoProdutoResponse {
+    fun findById(@PathVariable("id") id: UUID): CatalogoProdutoResponse {
         return mapCatalogoProduto(catalogoService.findById(id))
     }
 
@@ -37,7 +38,7 @@ class CatalogoController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun update(@PathVariable("id") id: Long, @RequestBody @Valid update: CatalogoUpdate): CatalogoResponse {
+    fun update(@PathVariable("id") id: UUID, @RequestBody @Valid update: CatalogoUpdate): CatalogoResponse {
         return map(catalogoService.update(id, update))
     }
 

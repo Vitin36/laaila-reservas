@@ -2,6 +2,7 @@ package com.br.laaila.reservas.laailareservas.model.request
 
 import com.br.laaila.reservas.laailareservas.model.entity.ExternalType
 import com.br.laaila.reservas.laailareservas.model.entity.Permissao
+import java.util.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
@@ -18,7 +19,7 @@ data class UsuarioCreate(
 )
 
 data class UsuarioStatusUpdate(
-        @field:[NotNull] val id: Long,
+        @field:[NotNull] val id: UUID,
         @field:[NotNull] val ativo: Boolean
 )
 

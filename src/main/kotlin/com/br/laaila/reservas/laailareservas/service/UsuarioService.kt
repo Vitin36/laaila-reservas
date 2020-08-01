@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class UsuarioService(
@@ -28,7 +29,7 @@ class UsuarioService(
         return repository.save(map(usuarioCreate).apply { this.senha = encrypt(this.senha) })
     }
 
-    fun findById(id: Long): Usuario {
+    fun findById(id: UUID): Usuario {
         return repository.findById(id).orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
     }
 
@@ -42,7 +43,7 @@ class UsuarioService(
                 .apply { this.ativo = usuarioStatusUpdate.ativo })
     }
 
-    fun update(id: Long, usuarioUpdate: UsuarioUpdate): Usuario {
+    fun update(id: UUID, usuarioUpdate: UsuarioUpdate): Usuario {
         return repository.save(findById(id).apply {
             this.nome = usuarioUpdate.nome ?: this.nome
             this.permissao = usuarioUpdate.permissao ?: this.permissao

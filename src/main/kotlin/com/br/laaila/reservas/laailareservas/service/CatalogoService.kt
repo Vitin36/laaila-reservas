@@ -7,19 +7,17 @@ import com.br.laaila.reservas.laailareservas.model.request.CatalogoCreate
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoUpdate
 import com.br.laaila.reservas.laailareservas.infrastructure.exception.NotFoundException
 import com.br.laaila.reservas.laailareservas.model.request.CatalogoStatusUpdate
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class CatalogoService(
         private val repository: CatalogoRepository
 ) {
 
-    @Autowired
-    lateinit var produtoService: ProdutoService
     private val NOT_FOUND_MESSAGE = "Catalogo não encontrado"
 
-    fun findById(id: Long): Catalogo {
+    fun findById(id: UUID): Catalogo {
         return repository.findById(id).orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
     }
 
@@ -31,7 +29,7 @@ class CatalogoService(
         return repository.save(map(catalogo))
     }
 
-    fun update(id: Long, catalogo: CatalogoUpdate): Catalogo {
+    fun update(id: UUID, catalogo: CatalogoUpdate): Catalogo {
         return repository.save(repository.findById(id)
                 .orElseThrow { NotFoundException(NOT_FOUND_MESSAGE) }
                 .apply {

@@ -1,5 +1,6 @@
 package com.br.laaila.reservas.laailareservas.model.request
 
+import java.util.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -17,6 +18,6 @@ data class CatalogoUpdate(
 )
 
 data class CatalogoStatusUpdate(
-        @field:[NotNull] val id: Long,
+        @field:[NotNull] val id: UUID,
         @field:[NotNull] val ativo: Boolean
 )

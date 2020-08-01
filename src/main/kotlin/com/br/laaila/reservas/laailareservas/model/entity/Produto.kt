@@ -1,15 +1,14 @@
 package com.br.laaila.reservas.laailareservas.model.entity
 
+import java.util.*
 import javax.persistence.*
 
 @Entity
 data class Produto(
         @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto")
-        @SequenceGenerator(name = "produto", sequenceName = "produto_seq", allocationSize = 1)
-        val id: Long = -1,
+        val id: UUID = UUID.randomUUID(),
         var nome: String,
-        var valor: Long,
+        var valor: Double,
         var descricao: String,
         var ativo: Boolean = true,
         @ManyToOne(fetch = FetchType.LAZY)

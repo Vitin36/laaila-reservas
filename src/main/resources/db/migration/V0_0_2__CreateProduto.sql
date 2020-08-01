@@ -1,10 +1,10 @@
 CREATE TABLE PRODUTO
 (
-    ID          integer NOT NULL PRIMARY KEY,
+    ID          uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
     NOME        varchar NOT NULL,
     VALOR       decimal NOT NULL,
     DESCRICAO   varchar NOT NULL,
-    CATALOGO_ID int     NOT NULL,
+    CATALOGO_ID uuid    NOT NULL,
     ATIVO       boolean NOT NULL,
     CONSTRAINT catalogo_fk FOREIGN KEY (CATALOGO_ID) REFERENCES CATALOGO (ID)
 );

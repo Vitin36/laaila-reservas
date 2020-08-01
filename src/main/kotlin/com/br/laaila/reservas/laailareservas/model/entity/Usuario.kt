@@ -2,14 +2,13 @@ package com.br.laaila.reservas.laailareservas.model.entity
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.util.*
 import javax.persistence.*
 
 @Entity
 class Usuario(
         @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario")
-        @SequenceGenerator(name = "usuario", sequenceName = "usuario_seq", allocationSize = 1)
-        val id: Long = -1,
+        val id: UUID = UUID.randomUUID(),
         @Column(unique = true)
         val email: String,
         var senha: String,
